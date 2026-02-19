@@ -57,8 +57,8 @@ def prepare_results_grid(grid_wavelets, image, image_path, n_rows, n_cols, devic
     grid_image = add_title_to_image(grid_image, 'Wavelets test')
     image_dir = os.path.join('.', 'results')
     os.makedirs(image_dir, exist_ok=True)
-    grid_image_path = os.path.join(image_dir, os.path.split(image_path)[-1])
-    status = cv2.imwrite(grid_image_path, grid_image[..., ::-1])
+    grid_image_path = os.path.join(image_dir, 'wavelets_' + os.path.split(image_path)[-1])
+    status = cv2.imwrite(grid_image_path, grid_image)
     print(f'Saved image to {grid_image_path}, status={status}')
     print('Reconstruction errors:')
     for k, v in errors.items():
@@ -66,7 +66,7 @@ def prepare_results_grid(grid_wavelets, image, image_path, n_rows, n_cols, devic
 
 
 if __name__ == '__main__':
-    image_idx = 0
+    image_idx = -1
     image, image_path = prepare_input_image(image_idx)
     grid_wavelets = [
         'haar', 'cdf-9/7', 'cdf-5/3', 'dmey', 'sym2',

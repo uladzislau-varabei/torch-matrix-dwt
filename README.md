@@ -19,4 +19,12 @@ The implementation heavily relies on `WaveCNet` repository https://github.com/Li
 
 # Results
 
-...
+Below are the results with some wavelets.
+
+Textures:
+![dwt_textures](results/wavelets_textures.png)
+
+Real image:
+![dwt_image4](results/wavelets_castle2.png)
+
+More images can be found in `images/` folder.
