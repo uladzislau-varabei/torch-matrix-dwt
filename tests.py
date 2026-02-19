@@ -54,19 +54,26 @@ def prepare_results_grid(grid_wavelets, image, image_path, n_rows, n_cols, devic
         diff = float(((restored_image - input_image) ** 2).mean().detach().cpu().numpy())
         errors[wavelet] = diff
     grid_image = create_images_grid(images, n_rows=n_rows, n_cols=n_cols)
+    grid_image = add_title_to_image(grid_image, 'Wavelets test')
     image_dir = os.path.join('.', 'results')
     os.makedirs(image_dir, exist_ok=True)
     grid_image_path = os.path.join(image_dir, os.path.split(image_path)[-1])
     status = cv2.imwrite(grid_image_path, grid_image[..., ::-1])
     print(f'Saved image to {grid_image_path}, status={status}')
-    print(f'Reconstruction errors: {errors}')
+    print('Reconstruction errors:')
+    for k, v in errors.items():
+        print(f'{k}: {v}')
 
 
 if __name__ == '__main__':
     image_idx = 0
     image, image_path = prepare_input_image(image_idx)
     grid_wavelets = [
-        'haar', 'cdf-9/7', 'cdf-5/3', 'dmey', 'sym2'
+        'haar', 'cdf-9/7', 'cdf-5/3', 'dmey', 'sym2',
+        'coif1', 'coif3', 'coif5', 'coif9', 'coif17',
+        'db2', 'db4', 'db6', 'db20', 'db38',
+        'bior1.1', 'bior3.5', 'bior3.7', 'bior5.5', 'bior6.8',
+        'rbio1.1', 'rbio3.5', 'rbio3.7', 'rbio5.5', 'rbio6.8',
     ]
     total_size = len(grid_wavelets)
     n_cols = 5
